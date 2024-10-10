@@ -1,9 +1,9 @@
 %% Stick_Diagram_Decomposition.m
-%% Plots stick diagram decomposition for Figure 5a
+%% Plots stick diagram decomposition for Figure 6a
 %
 %% load data
 data_path = fullfile(extractBefore(mfilename('fullpath'), mfilename));
-load(fullfile(data_path, 'stickDecompData.mat')) %first four seconds of SLWS for OFF and DCS conditions
+load(fullfile(data_path, 'stickDecompData.mat')) %first four seconds of SLW for DBS/DCS treatment conditions
 
 %% params and plot settings
 pns_fs = 96; %sample rate of MoCap
@@ -12,7 +12,7 @@ time_points = 0:event_len; %time points for arrow markers (sec)
 sec_locs = time_points * pns_fs + 1; %indices of time_points for pns_fs sample rate
 num_conds = length(stickDecompData); %number of treatment conditions
 
-colors = ["#003C96","#11A69C","#924AF7","#D17711","#0081FE","#FF5383"]; %color scheme for treatment conditions
+colors = ["#00AB55","#400387","#F2681F","#005062","#DE2C62","#660E00"]; %color scheme for treatment conditions
 SegDens = 2; %density of samples to display on the plot
 LineWidth = 0.5; %width of plot lines
 arrow_x_reference = 4; % 
@@ -75,9 +75,11 @@ for m = 1:SegDens:xy_len %loop through sticks
     end
     if m >= tp
         k = k + 1;
-    end    
+    end
+    
 end
-
+axDiffSigs = flip(findobj(axDiff,'Tag','Signal'));
+legend(axDiffSigs,string({stickDecompData.name}), 'Interpreter','none')
 %% plot helpers
 function drawArrow(x, y, txt, props)
     % draws arrow marker on current axis
