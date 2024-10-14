@@ -1,9 +1,9 @@
 %% Stick_Diagram_Decomposition.m
-%% Plots stick diagram decomposition for Figure 5a
+%% Plots stick diagram decomposition for Figure 6a
 %
 %% load data
 data_path = fullfile(extractBefore(mfilename('fullpath'), mfilename));
-load(fullfile(data_path, 'stickDecompData.mat')) %first four seconds of SLWS for OFF and DCS conditions
+load(fullfile(data_path, 'stickDecompData_6a.mat')) %first four seconds of SLW for DBS/DCS treatment conditions
 
 %% params and plot settings
 pns_fs = 96; %sample rate of MoCap
@@ -12,7 +12,7 @@ time_points = 0:event_len; %time points for arrow markers (sec)
 sec_locs = time_points * pns_fs + 1; %indices of time_points for pns_fs sample rate
 num_conds = length(stickDecompData); %number of treatment conditions
 
-colors = ["#003C96","#11A69C","#924AF7","#D17711","#0081FE","#FF5383"]; %color scheme for treatment conditions
+colors = ["#00AB55","#400387","#F2681F","#005062","#DE2C62","#660E00"]; %color scheme for treatment conditions
 SegDens = 2; %density of samples to display on the plot
 LineWidth = 0.5; %width of plot lines
 arrow_x_reference = 4; % 
@@ -27,6 +27,7 @@ ymin = min(yvals, [], "all");
 ymax = max(yvals, [], "all");
 
 % initialize figure and tilelayout
+lgnd_lbl = append({stickDecompData.name},'_', {stickDecompData.session});
 f = figure;
 f.Color = [1,1,1];
 fpos = f.Position;
@@ -41,7 +42,7 @@ hs = gobjects(num_conds,1);
 
 %% initialize plots
 % initialize animated plots
-for i = 1:length(axs)
+for i = 1:num_conds
     axs(i) = nexttile;
     hold(axs(i), "on")
     axs(i).YTickLabel = [];
@@ -50,8 +51,6 @@ for i = 1:length(axs)
     axs(i).LineWidth = 1;
     xlim(axs(i), [xmin-0.05, xmax+0.01])
     ylim(axs(i), [ymin - 0.1, ymax + 0.4])
-    %hs(i) = animatedline("LineWidth", LineWidth, "Color", colors{i}, "LineStyle", "-", "Marker", "none");
-       
 end
 xlim(axs, [xmin-0.05, xmax+0.01])
 ylim(axs, [ymin - 0.1, ymax + 0.4])
@@ -75,9 +74,19 @@ for m = 1:SegDens:xy_len %loop through sticks
     end
     if m >= tp
         k = k + 1;
-    end    
+    end
+    
 end
 
+ax_stick_lgnd = gobjects(num_conds, 1); %get a single stick for each condition for legend
+for i = 1:num_conds
+    line_tmp = findobj(axs(i), "Type", "Line");
+    ax_stick_lgnd(i) = line_tmp(1);
+end
+ 
+lgnd = legend(ax_stick_lgnd,lgnd_lbl, 'Interpreter','none', 'Location','northeast'); %legend
+lgnd.Position = [0.679266661631266,0.826541664377848,0.3132000050354,0.104125002288818];
+lgnd.Box = "off";
 %% plot helpers
 function drawArrow(x, y, txt, props)
     % draws arrow marker on current axis
