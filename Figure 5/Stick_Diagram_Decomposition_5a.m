@@ -1,4 +1,4 @@
-%% Stick_Diagram_Decomposition.m
+%% Stick_Diagram_Decomposition_5a.m
 %% Plots stick diagram decomposition for Figure 5a
 %
 %% load data
