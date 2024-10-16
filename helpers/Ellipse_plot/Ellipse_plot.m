@@ -1,5 +1,5 @@
 function Ellipse_plot(A, C, Color, varargin)
-%
+%  Ben Rees Edit: added "Color" input
 %  Ellipse_Plot(A,C,N) plots a 2D ellipse or a 3D ellipsoid 
 %  represented in the "center" form:  
 %               
