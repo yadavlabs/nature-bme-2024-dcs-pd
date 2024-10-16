@@ -1,9 +1,16 @@
 %% Stick_Diagram_Decomposition_5a.m
 %% Plots stick diagram decomposition for Figure 5a
 %
-%% load data
-data_path = fullfile(extractBefore(mfilename('fullpath'), mfilename));
+%% load data 
+data_path = extractBefore(mfilename('fullpath'), mfilename); %change if data is in different path
 load(fullfile(data_path, 'stickDecompData_5a.mat')) %first four seconds of SLWS for OFF and DCS conditions
+
+%% add plot helper functions
+% uses:
+%   drawArrow
+%   drawScaleBar
+helper_path = fullfile(extractBefore(data_path, 'Figure 5'), 'helpers');
+addpath(helper_path)
 
 %% params and plot settings
 pns_fs = 96; %sample rate of MoCap
@@ -88,50 +95,3 @@ end
 lgnd = legend(ax_stick_lgnd,lgnd_lbl, 'Interpreter','none', 'Location','northeast'); %legend
 lgnd.Position = [0.658466661631266,0.809541664377848,0.3132000050354,0.104125002288818];
 lgnd.Box = "off";
-%% plot helpers
-function drawArrow(x, y, txt, props)
-    % draws arrow marker on current axis
-    h = annotation(gcf, 'textarrow', 'String', txt);
-    set(h,'parent', gca, ...
-    'position', [x(1),y(1),x(2)-x(1),y(2)-y(1)], ...
-    'LineWidth', 1, 'HeadLength', 5, 'HeadWidth', 8, 'HeadStyle', 'cback1', ...
-    props{:} );
-end
-
-function drawScaleBar(axh, mLen, Location)
-    % adapted from https://www.mathworks.com/matlabcentral/answers/151248-add-a-scale-bar-to-my-plot
-    % draws scale bar on axis specified by "axh"
-    plotTypes = get(axh.Children, "Type");
-
-    switch Location
-        case 'TopRight'
-            xB = axh.XLim(2);
-            yB = axh.YLim(1);
-            plot(axh, [xB-mLen, xB], [yB, yB], '-k', [xB, xB], [yB, yB+mLen], '-k', 'LineWidth', 2)
-            %text(axh, xB-mLen/2, yB-0.07, [num2str(mLen) 'm'], 'FontSize',12,'HorizontalAlignment','center')
-            xticks(axh, xB-mLen/2)
-            xticklabels(axh, [num2str(mLen) 'm'])
-            axh.YAxisLocation = 'right';
-        
-            yticks(axh, yB+mLen/2)
-            yticklabels(axh, [num2str(mLen) 'm'])
-            ytickangle(axh, -90)
-
-        case 'BottomLeft'
-            xB = axh.XLim(1);
-            yB = axh.YLim(1);
-            % if any(contains(plotTypes, 'animatedline'))
-            %     h = animatedline('LineWidth', 2, 'Color', 'k', 'LineStyle','-');
-            %     addpoints(h, [xB+mLen, xB], [yB, yB])
-            %     addpoints(h, [xB, xB], [yB, yB+mLen])
-            % else
-                plot(axh, [xB+mLen, xB], [yB, yB], '-k', [xB, xB], [yB, yB+mLen], '-k', 'LineWidth', 2)
-            % end
-            xticks(axh, xB+mLen/2)
-            xticklabels(axh, [num2str(mLen) 'm'])
-            yticks(axh, yB+mLen/2)
-            yticklabels(axh, [num2str(mLen) 'm'])
-            ytickangle(axh, 90)
-            axh.FontSize = 10;
-    end
-end

@@ -2,7 +2,7 @@
 % Plots power spectral density for Figure 6e
 
 %% load data
-data_path = fullfile(extractBefore(mfilename('fullpath'), mfilename));
+data_path = extractBefore(mfilename('fullpath'), mfilename); %change if data is in different path
 load(fullfile(data_path, 'psdData_6e.mat'))
 
 %% params and plot settings

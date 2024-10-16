@@ -2,7 +2,7 @@
 % Plots power spectral density for Figure 5f
 
 %% load data
-data_path = fullfile(extractBefore(mfilename('fullpath'), mfilename));
+data_path = extractBefore(mfilename('fullpath'), mfilename); %change if data is in different path
 load(fullfile(data_path, 'psdData_5f.mat'))
 
 
@@ -16,7 +16,7 @@ colors_rgb = hex2rgb(colors, "OutputType", "double"); % colors_rgb(i,:) to get e
 
 % initialize figure and tiledlayout for psd in decibels
 lgnd_lbl = append({psdData.name},'_', {psdData.session});
-f1 = figure;
+f1 = figure('Name','Figure 5f');
 f1.Position(2) = 100;
 f1.Position(3:4) = [800, 800*4.5/5.25];
 
@@ -101,7 +101,7 @@ set(ax1R,'Layer','top')
 
 %% isometric psd 
 % initialize figure and tiledlayout for isometric psd
-f2  = figure;
+f2  = figure('Name','Figure 5f Inset');
 f2.Position(3:4) = [800, 660];
 f2.Position(2) = 100;
 t2 = tiledlayout(2,1, "TileSpacing","compact");
