@@ -1,5 +1,6 @@
 %% EXTENDED DATA FIGURE 4 PLOT GENERATION
-% **NOTE** Extended Data Figure 4 c,d,e were generated elsewhere.
+% **NOTE** Generates Extended Data Figure 4a and b. 
+% Extended Data Figure 4 c,d,e were generated elsewhere.
 
 %% Input folder path, load data
 
@@ -8,7 +9,7 @@
 data_path = extractBefore(mfilename('fullpath'), mfilename); %change if data is in different path
 
 % Specify file name
-file_name = 'rodentData_Ext4.mat';
+file_name = 'rodentData_Ext4ab.mat';
 load(fullfile(data_path,file_name))
 
 %% EXTENDED DATA FIGURE 4A
