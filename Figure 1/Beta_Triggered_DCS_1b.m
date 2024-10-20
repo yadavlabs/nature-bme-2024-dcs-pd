@@ -19,7 +19,6 @@ helper_path = fullfile(extractBefore(data_path, 'Figure 1'), 'helpers');
 addpath(genpath(helper_path))
 
 %% FIGURE 1B
-%rng(42)
 % lfp beta envelope
 f1 = figure; 
 %f1.Position = [120,445,1280,230];
